@@ -1,0 +1,38 @@
+{
+    "name": "huff-portfolio-astro",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro"
+    },
+    "browserslist": [
+        "defaults",
+        ">0.3%",
+        "not dead"
+    ],
+    "devDependencies": {
+        "@astrojs/node": "^8.3.3",
+        "@eslint/js": "^9.9.0",
+        "astro": "^4.14.2",
+        "astro-eslint-parser": "^1.0.2",
+        "eslint": "^9.9.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-astro": "^1.2.3",
+        "eslint-plugin-jsx-a11y": "^6.9.0",
+        "globals": "^15.9.0",
+        "postcss-preset-env": "^10.0.1",
+        "postcss-sort-media-queries": "^5.2.0",
+        "prettier": "3.3.3",
+        "vite": "^5.4.1",
+        "vite-plugin-clean-css": "^0.0.3"
+    },
+    "overrides": {
+        "eslint-plugin-jsx-a11y": {
+            "eslint": "^9.9.0"
+        }
+    }
+}

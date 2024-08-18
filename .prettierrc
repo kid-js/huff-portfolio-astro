@@ -1,0 +1,17 @@
+{
+    "printWidth": 80,
+    "tabWidth": 4,
+    "quoteProps": "consistent",
+    "jsxSingleQuote": false,
+    "singleQuote": true,
+    "htmlWhitespaceSensitivity": "strict",
+
+    "overrides": [
+        {
+            "files": ["**/*.css", "**/*.json", "**/*.html"],
+            "options": {
+                "singleQuote": false
+            }
+        }
+    ]
+}

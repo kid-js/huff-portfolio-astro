@@ -1,0 +1,148 @@
+---
+function getMenuItem(slug, text) {
+    if (Astro.url.pathname === slug) {
+        return `<span class="current-page-menu-item"> ${text} </span>`;
+    }
+    return `<a class="header__link" href=${slug}> ${text} </a>`;
+}
+
+function getHeaderTitle() {
+    return `
+        <h1 class="header__title">
+            <span class="accent-text-title visible-desktop">Jonnas</span>
+            <span class="accent-text-title visible-mobile">J.</span> Huff
+        </h1>
+    `;
+}
+
+const buttonText = 'Contact';
+---
+
+<header class="header">
+    <div class="wrapper wrapper_header">
+        {
+            Astro.url.pathname === '/' ? (
+                <Fragment set:html={getHeaderTitle()} />
+            ) : (
+                <a class="header__link" href="/">
+                    <Fragment set:html={getHeaderTitle()} />
+                </a>
+            )
+        }
+
+        <ul class="header__menu" role="menu">
+            <li class="visible-desktop" role="menuitem">
+                <Fragment set:html={getMenuItem('/', 'Main')} />
+            </li>
+
+            <li role="menuitem">
+                <Fragment set:html={getMenuItem('/about', 'About')} />
+            </li>
+
+            <li role="menuitem">
+                <Fragment set:html={getMenuItem('/projects', 'Projects')} />
+            </li>
+        </ul>
+
+        <a
+            class="button button_solid button_small"
+            href="#contact"
+            data-id="header-contact-button"
+        >
+            <span class="button__text"> {buttonText} </span>
+            <span class="button__hover button__hover_small">
+                {buttonText}
+            </span>
+        </a>
+    </div>
+</header>
+
+<script>
+    import {
+        setAndRemoveClass as animateTitle
+    } from '../helpers/setAndRemoveClass.js';
+    import { animationsOptions } from '../config/animationsConfig.js';
+    import { throttle } from '../helpers/throttle.js';
+
+    const options = animationsOptions.contactTitle;
+    const accentTitle = throttle(animateTitle.bind({}, options), options.delay);
+
+    document
+        .querySelector('[data-id="header-contact-button"]')
+        .addEventListener('click', accentTitle);
+</script>
+
+<style is:global>
+    .header {
+        padding: 36px 0 44px;
+        border-bottom: 1px solid transparent;
+        background-color: transparent;
+
+        position: sticky;
+        top: 0;
+        left: 0;
+        right: 0;
+        transition:
+            padding 0.4s,
+            background-color 0.4s,
+            border-color 0.4s;
+        z-index: 1;
+    }
+
+    .wrapper_header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        @media screen and (max-width: 380px) {
+            gap: 16px;
+        }
+        @media screen and (max-width: 356px) {
+            font-size: 16px;
+            gap: 12px;
+        }
+    }
+
+    .header_small {
+        padding: 8px 0;
+        border-color: var(--color-main-600);
+        background-color: var(--bg-dark);
+    }
+
+    .header__menu {
+        display: flex;
+        gap: 20px;
+        margin-left: auto;
+
+        @media screen and (max-width: 380px) {
+            gap: 16px;
+        }
+        @media screen and (max-width: 356px) {
+            gap: 12px;
+        }
+    }
+
+    .header__title {
+        font-size: var(--fs-h5);
+        font-weight: var(--fw-h2);
+
+        & .accent-text-title {
+            color: var(--text-light);
+        }
+
+        @media screen and (max-width: 380px) {
+            font-size: 19px;
+        }
+        @media screen and (max-width: 356px) {
+            font-size: var(--fs-normal);
+        }
+    }
+
+    .header__link {
+        transition: color 0.2s;
+
+        &:hover {
+            color: var(--color-main-300);
+        }
+    }
+</style>

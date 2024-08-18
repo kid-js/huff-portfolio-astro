@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><switch><g><circle cx="12" cy="12" r="12" fill="#03b8ff" style="fill:#3a4164"/><path fill="#fff" d="m17.7 11.3-5-5c-.1-.1-.2-.2-.3-.2-.2-.1-.5-.1-.8 0-.1 0-.2.1-.3.2l-5 5c-.4.4-.4 1 0 1.4s1 .4 1.4 0L11 9.4V17c0 .6.4 1 1 1s1-.4 1-1V9.4l3.3 3.3c.4.4 1 .4 1.4 0 .4-.4.4-1 0-1.4z" style="fill:#fff"/></g></switch></svg>
