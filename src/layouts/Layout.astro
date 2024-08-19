@@ -15,6 +15,7 @@ const { title = 'Title', description = 'Description' } = Astro.props;
         <meta name="description" content={description}>
         <link rel="icon" href="/favicon.svg">
         <title> {title} </title>
+        <script src="/lib/particles.js/particles.min.js" defer></script>
         <link
             rel="preload"
             as="font"
@@ -49,8 +50,6 @@ const { title = 'Title', description = 'Description' } = Astro.props;
         <div class="particles-bg-container">
             <canvas class="particles-bg"></canvas>
         </div>
-
-        <script type="module" src="/lib/particles.js/particles.min.js"></script>
     </body>
 </html>
 
