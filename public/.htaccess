@@ -1,9 +1,13 @@
 Options -Indexes
 
 <Files .htaccess>
-order allow,deny
-deny from all
+    order allow,deny
+    deny from all
 </Files>
+
+<FilesMatch ".(gif|jpg|jpeg|png|avif|webp|svg|ico|js|css)$">
+    Header set Cache-Control "max-age=777600, public, must-revalidate, proxy-revalidate"
+</FilesMatch>
 
 Options +FollowSymLinks
 
