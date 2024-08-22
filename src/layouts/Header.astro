@@ -1,6 +1,8 @@
 ---
 function getMenuItem(slug, text) {
-    if (Astro.url.pathname === slug) {
+    const fullSlug = slug === '/' ? '/' : slug + '.html'; // Astro issue 4252
+
+    if (Astro.url.pathname === fullSlug) {
         return `<span class="current-page-menu-item"> ${text} </span>`;
     }
     return `<a class="header__link" href=${slug}> ${text} </a>`;
