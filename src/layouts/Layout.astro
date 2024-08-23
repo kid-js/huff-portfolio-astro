@@ -4,7 +4,7 @@ import '../styles/global.css';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 
-const { title = '', description = '' } = Astro.props;
+const { title = '', description = '', preloads = '' } = Astro.props;
 ---
 
 <!doctype html>
@@ -37,6 +37,7 @@ const { title = '', description = '' } = Astro.props;
             href="/fonts/poppins-v20-latin-500.woff2"
             crossorigin
         >
+        <Fragment set:html={preloads} />
     </head>
 
     <body>

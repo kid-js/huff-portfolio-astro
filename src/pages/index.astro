@@ -2,9 +2,27 @@
 import Layout from '../layouts/Layout.astro';
 
 const buttonText = 'Get in touch →';
+const preloads = `
+    <link
+        rel="preload"
+        as="image"
+        imagesrcset="
+            /img/profile-small.avif 800w,
+            /img/profile-medium.avif 1000w,
+            /img/profile-large.avif 1200w"
+        imagesizes="(max-width: 959px) 345px, (min-width: 960px) 1200px"
+        media="(-webkit-min-device-pixel-ratio: 1.5)"
+    >
+    <link
+        rel="preload"
+        as="image"
+        href="/img/profile-large.avif"
+        media="(-webkit-max-device-pixel-ratio: 1.4)"
+    >
+`;
 ---
 
-<Layout title="Jonnas Huff" description="Jonnas Huff - Full-stack developer">
+<Layout title="Jonnas Huff" description="Jonnas Huff - Full-stack developer" {preloads}>
     <section class="hero">
         <div class="wrapper wrapper_hero">
             <div class="hero__about">
