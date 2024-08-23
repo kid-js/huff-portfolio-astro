@@ -4,7 +4,7 @@ import '../styles/global.css';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 
-const { title = 'Title', description = 'Description' } = Astro.props;
+const { title = '', description = '' } = Astro.props;
 ---
 
 <!doctype html>
@@ -28,6 +28,13 @@ const { title = 'Title', description = 'Description' } = Astro.props;
             as="font"
             type="font/woff2"
             href="/fonts/poppins-v20-latin-600.woff2"
+            crossorigin
+        >
+        <link
+            rel="preload"
+            as="font"
+            type="font/woff2"
+            href="/fonts/poppins-v20-latin-500.woff2"
             crossorigin
         >
     </head>
@@ -54,62 +61,69 @@ const { title = 'Title', description = 'Description' } = Astro.props;
 </html>
 
 <script>
-    let isPageScrolled = false;
-    let areParticlesVisible = true;
+    document.addEventListener('DOMContentLoaded', () => {
+        let isPageScrolled = false;
+        let areParticlesVisible = true;
 
-    const header = document.querySelector('header.header');
-    const toTopButton = document.querySelector('.to-top-button');
-    const observerTarget = document.querySelector('.particles-bg');
+        const header = document.querySelector('header.header');
+        const toTopButton = document.querySelector('.to-top-button');
+        const observerTarget = document.querySelector('.particles-bg');
 
-    function handleScrollRelatedAnimation(particles) {
-        if (isPageScrolled) {
-            header.classList.add('header_small');
-        }
-        else {
-            header.classList.remove('header_small');
-        }
-
-        if (areParticlesVisible) {
-            particles.resumeAnimation();
-            // particles.pauseAnimation();
-            toTopButton.removeAttribute('style');
-        }
-        else {
-            particles.pauseAnimation();
-            toTopButton.style.bottom = '20px';
-        }
-    }
-
-    async function initIntersectionObserver() {
-        const { particles } = await import(
-            '../config/particles.init.config.js'
-        );
-
-        const callback = (entries) => {
-            if (entries[0].isIntersecting) {
-                isPageScrolled = entries[0].intersectionRatio < 0.95;
-                areParticlesVisible = true;
-            }
-            else {
-                areParticlesVisible = false;
-            }
-
-            handleScrollRelatedAnimation(particles);
-        };
-
-        const options = {
-            threshold: [0.1, 0.95],
-        };
-
-        const observer = new IntersectionObserver(callback, options);
-        observer.observe(observerTarget);
-    }
-
-    (function init() {
         if (!header || !toTopButton || !observerTarget) {
             return;
         }
 
+        const particles = Particles.init({ // eslint-disable-line no-undef
+            selector: '.particles-bg',
+            color: ['#9290C3', '#836FFF'],
+            connectParticles: true,
+            sizeVariations: 2,
+            minDistance: 205,
+            maxParticles: 30,
+            speed: 0.275,
+        });
+
+        function handleScrollRelatedAnimation() {
+            if (isPageScrolled) {
+                header.classList.add('header_small');
+            }
+            else {
+                header.classList.remove('header_small');
+            }
+
+            if (areParticlesVisible) {
+                particles.resumeAnimation();
+                // particles.pauseAnimation();
+                toTopButton.removeAttribute('style');
+            }
+            else {
+                particles.pauseAnimation();
+                toTopButton.style.bottom = '20px';
+            }
+        }
+
+        async function initIntersectionObserver() {
+            const callback = (entries) => {
+                if (entries[0].isIntersecting) {
+                    isPageScrolled = entries[0].intersectionRatio < 0.95;
+                    areParticlesVisible = true;
+                }
+                else {
+                    areParticlesVisible = false;
+                }
+
+                handleScrollRelatedAnimation();
+            };
+
+            const options = {
+                threshold: [0.1, 0.95],
+            };
+
+            const observer = new IntersectionObserver(callback, options);
+            observer.observe(observerTarget);
+        }
+
         initIntersectionObserver();
-    })();
+    }, { once: true });
+
 </script>
