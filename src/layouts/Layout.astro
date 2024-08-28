@@ -70,8 +70,19 @@ const { title = '', description = '', preloads = '' } = Astro.props;
         const toTopButton = document.querySelector('.to-top-button');
         const observerTarget = document.querySelector('.particles-bg');
 
-        if (!header || !toTopButton || !observerTarget) {
-            return;
+        if (!header || !toTopButton || !observerTarget) { return; }
+
+        let minDistance = 215;
+        let maxParticles = 30;
+        const width = document.body.offsetWidth;
+
+        if (width < 960) {
+            minDistance = 165;
+            maxParticles = 19;
+        }
+        else if (width > 1600) {
+            minDistance = 265;
+            maxParticles = 36;
         }
 
         const particles = Particles.init({ // eslint-disable-line no-undef
@@ -79,9 +90,9 @@ const { title = '', description = '', preloads = '' } = Astro.props;
             color: ['#9290C3', '#836FFF'],
             connectParticles: true,
             sizeVariations: 2,
-            minDistance: 205,
-            maxParticles: 30,
             speed: 0.275,
+            maxParticles,
+            minDistance,
         });
 
         function handleScrollRelatedAnimation() {
@@ -126,5 +137,4 @@ const { title = '', description = '', preloads = '' } = Astro.props;
 
         initIntersectionObserver();
     }, { once: true });
-
 </script>
