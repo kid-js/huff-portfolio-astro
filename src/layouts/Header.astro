@@ -66,12 +66,16 @@ const buttonText = 'Contact';
     import { animationsOptions } from '../config/animationsConfig.js';
     import { throttle } from '../helpers/throttle.js';
 
-    const options = animationsOptions.contactTitle;
-    const accentTitle = throttle(animateTitle.bind({}, options), options.delay);
+    document.addEventListener('astro:page-load', () => {
+        const options = animationsOptions.contactTitle;
+        const accentTitle = throttle(
+            animateTitle.bind({}, options), options.delay
+        );
 
-    document
-        .querySelector('[data-id="header-contact-button"]')
-        ?.addEventListener('click', accentTitle);
+        document
+            .querySelector('[data-id="header-contact-button"]')
+            ?.addEventListener('click', accentTitle);
+    });
 </script>
 
 <style is:global>

@@ -22,21 +22,25 @@ const preloads = `
 `;
 ---
 
-<Layout title="Jonnas Huff" description="Jonnas Huff - Full-stack developer" {preloads}>
+<Layout
+    title="Jonnas Huff"
+    description="Jonnas Huff - Full-stack developer"
+    {preloads}
+>
     <section class="hero">
         <div class="wrapper wrapper_hero">
             <div class="hero__about">
                 <h2 class="hero__title">
                     Hi! I am <span class="accent-text-title">Jonnas</span> Huff
-                    <br>
+                    <br />
                     Full-stack <span class="accent-text-title">developer</span>
                 </h2>
 
                 <p class="hero__skills">
                     My <span class="accent-text">favourite tech</span>
                     includes <span class="accent-text">React & Next.js</span>
-                    (or Vue & Nuxt.js), TypeScript, Tailwind CSS, Node.js +
-                    Express.js + PostgreSQL or Firebase/Firestore!
+                    (or Vue & Nuxt.js), TypeScript, Tailwind CSS, Node.js
+                    + Express.js + PostgreSQL or Firebase/Firestore!
                 </p>
 
                 <div class="hero__contact">
@@ -65,14 +69,17 @@ const preloads = `
                         sizes="
                             (max-width: 959px) 345px,
                             (min-width: 960px) 1200px"
-                    >
-                    <source type="image/avif" srcset="/img/profile-large.avif">
-                    <source type="image/webp" srcset="/img/profile.webp">
+                    />
+                    <source
+                        type="image/avif"
+                        srcset="/img/profile-large.avif"
+                    />
+                    <source type="image/webp" srcset="/img/profile.webp" />
                     <img
                         class="hero-img"
                         src="/img/profile.png"
                         alt="Jonnas Huff"
-                    >
+                    />
                 </picture>
             </div>
         </div> <!-- end of div "wrapper" -->
@@ -86,12 +93,17 @@ const preloads = `
     import { animationsOptions } from '../config/animationsConfig.js';
     import { throttle } from '../helpers/throttle.js';
 
-    const options = animationsOptions.contactTitle;
-    const accentTitle = throttle(animateTitle.bind({}, options), options.delay);
+    document.addEventListener('astro:page-load', () => {
+        const options = animationsOptions.contactTitle;
+        const accentTitle = throttle(
+            animateTitle.bind({}, options),
+            options.delay
+        );
 
-    document
-        .querySelector('[data-id="hero-contact-button"]')
-        ?.addEventListener('click', accentTitle);
+        document
+            .querySelector('[data-id="hero-contact-button"]')
+            ?.addEventListener('click', accentTitle);
+    });
 </script>
 
 <style>
