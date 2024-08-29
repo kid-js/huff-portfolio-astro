@@ -74,6 +74,7 @@ const { title = '', description = '', preloads = '' } = Astro.props;
 
         if (!header || !toTopButton || !observerTarget) { return; }
 
+        let observer = null;
         let minDistance = 215;
         let maxParticles = 30;
         const width = document.body.offsetWidth;
@@ -87,12 +88,12 @@ const { title = '', description = '', preloads = '' } = Astro.props;
             maxParticles = 36;
         }
 
-        const particles = Particles.init({ // eslint-disable-line no-undef
+        let particles = Particles.init({ // eslint-disable-line no-undef
             selector: '.particles-bg',
             color: ['#9290C3', '#836FFF'],
             connectParticles: true,
             sizeVariations: 2,
-            speed: 0.25,
+            speed: 0.275,
             maxParticles,
             minDistance,
         });
@@ -133,10 +134,17 @@ const { title = '', description = '', preloads = '' } = Astro.props;
                 threshold: [0.1, 0.95],
             };
 
-            const observer = new IntersectionObserver(callback, options);
+            observer = new IntersectionObserver(callback, options);
             observer.observe(observerTarget);
         }
 
         initIntersectionObserver();
+
+        document.addEventListener('astro:before-swap', () => {
+            particles.pauseAnimation();
+            observer.disconnect();
+            particles = null;
+            observer = null;
+        }, { once: true });
     });
 </script>

@@ -72,9 +72,17 @@ const buttonText = 'Contact';
             animateTitle.bind({}, options), options.delay
         );
 
-        document
-            .querySelector('[data-id="header-contact-button"]')
-            ?.addEventListener('click', accentTitle);
+        const headerButton = document.querySelector(
+            '[data-id="header-contact-button"]'
+        );
+
+        if (headerButton) {
+            headerButton.addEventListener('click', accentTitle);
+
+            document.addEventListener('astro:before-swap', () => {
+                headerButton.removeEventListener('click', accentTitle);
+            }, { once: true });
+        }
     });
 </script>
 
